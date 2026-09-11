@@ -1,0 +1,6 @@
+# profile/compensation.yaml
+
+min_salary_inr_month: 40000
+expected_salary_inr_month: 40000
+current_ctc: 20000 # INR per month (2.4 LPA) current CTC; some forms require a real number, not "N/A"
+negotiable: true

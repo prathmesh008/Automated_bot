@@ -1,0 +1,20 @@
+# Dependencies & Environments
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets & Environment variables
+.env
+*.pem
+
+# Local session & browser profile data
+chrome_profile/
+*.log
+
+# Local databases and tailored outputs
+data/tracker.db
+data/tailored_resumes/
+
+# OS artifacts
+.DS_Store

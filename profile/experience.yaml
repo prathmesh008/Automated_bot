@@ -1,0 +1,26 @@
+# profile/experience.yaml
+
+experience:
+  - title: "Full Stack Developer"
+    company: "Urban Culture (Home Salon Startup)"
+    location: "Jaipur, India"
+    start_date: "2026-05"
+    end_date: "Present"
+    tech_stack: ["Node.js", "Redis", "MongoDB", "Next.js", "Docker", "GitHub Actions"]
+    bullets:
+      - "Designed and shipped a cross-sell recommendation engine for checkout upsells; evaluated Apriori rule mining against multiple ML re-ranking architectures using bootstrapped confidence-interval testing, catching a train/test leakage bug and a silent feature-join failure."
+      - "Designed cancellation and payment REST APIs from scratch, with Redis-backed distributed locking to prevent race conditions on concurrent slot bookings."
+      - "Built an internal wallet/ledger system to track user balances and transaction history."
+      - "Migrated key pages from client-side rendering to SSR/SSG and added Redis caching for static database reads; built a unified push notification system on Firebase Cloud Messaging with topic-based segmentation."
+      - "Integrated Sentry for error tracking, migrated backend services off static service-account keys to ADC-based auth, and set up CI/CD with GitHub Actions and Docker for staging-to-production parity."
+
+  - title: "Full Stack Engineering Intern"
+    company: "Mentaive (EdTech Startup)"
+    location: "Remote"
+    start_date: "2026-02"
+    end_date: "2026-05"
+    tech_stack: ["React.js", "Next.js", "Python", "Django"]
+    bullets:
+      - "Owned delivery of 3+ production features in React.js/Next.js from requirements to deployment, cutting page load time 30% via code splitting, lazy loading, and bundle auditing."
+      - "Designed 10+ RESTful API contracts between the React frontend and a Python/Django backend, cutting cross-team integration time 50% and unblocking 2 sprint cycles."
+      - "Diagnosed a critical DOM rendering bug causing UI freezes on low-end devices: profiled the component tree, isolated a re-render loop, and shipped a fix under deadline."

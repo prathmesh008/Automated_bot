@@ -1,0 +1,55 @@
+# screening_qa_bank.yaml
+# Pre-written answers to common ATS screening questions.
+# A deterministic script (or cheap text-LLM) can string-match incoming form questions to these answers.
+
+questions:
+  - keywords: ["sponsorship", "visa", "h1b"]
+    answer: "No"
+    
+  - keywords: ["authorized to work", "eligible to work", "right to work"]
+    answer: "Yes"
+    
+  - keywords: ["notice period", "start date", "how soon"]
+    answer: "Immediately"
+    
+  - keywords: ["expected salary", "compensation", "salary expectation"]
+    answer: "40000 INR/month"
+    
+  - keywords: ["willing to relocate", "relocation"]
+    answer: "Yes"
+    
+  - keywords: ["years of experience", "how many years"]
+    answer: "1" # Always put 1 for 0-1 years to bypass aggressive integer filters
+    
+  - keywords: ["github", "git hub"]
+    answer: "https://github.com/prathmesh008"
+    
+  - keywords: ["linkedin"]
+    answer: "https://www.linkedin.com/in/prathmeshupadhyay008"
+    
+  - keywords: ["website", "portfolio"]
+    answer: "https://yourportfolio.com"
+
+  - keywords: ["why this company", "why do you want to work here"]
+    answer: "I am deeply passionate about building scalable backend systems and AI tools. Your recent work aligns perfectly with my background in Node.js and Python, and I am eager to bring my fast-learning, startup-ready mindset to the team."
+
+  - keywords: ["current ctc", "current compensation", "current salary"]
+    answer: "Not Applicable (Fresher)"
+
+  - keywords: ["gender"]
+    answer: "Male"
+
+  - keywords: ["date of birth", "dob"]
+    answer: "01/01/2000"
+
+  - keywords: ["highest degree", "education", "highest education", "qualification"]
+    answer: "Bachelor of Technology"
+
+  - keywords: ["current company", "employer"]
+    answer: "Not Applicable"
+
+  - keywords: ["current designation", "job title", "current role"]
+    answer: "Student"
+
+  - keywords: ["city", "location", "current location"]
+    answer: "Bangalore"

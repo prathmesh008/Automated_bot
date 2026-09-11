@@ -1,0 +1,13 @@
+# profile/work_auth.yaml
+#
+# Feeds the legal_sensitive questions in screening_qa_bank.yaml.
+# citizenship inferred from resume (Jaipur address, +91 number, VIT India
+# education) but NOT stated explicitly on the resume — confirm before
+# relying on it for sponsorship/authorization answers on international roles.
+
+citizenship: "India"  # TODO: confirm — inferred, not stated on resume
+current_location: "Jaipur, India"
+requires_sponsorship: true   # TODO: set false if only targeting India-based roles (Wellfound India, Instahyre); true if applying to US/international roles via YC/WeWorkRemotely
+work_authorized_in:
+  - "India"
+notice_period_days: 15   # TODO: confirm actual notice period at current role

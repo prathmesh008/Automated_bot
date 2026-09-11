@@ -1,0 +1,45 @@
+PRATHMESH UPADHYAY
+Jaipur, India | +91-9871057729 | prath.upadhyay08@gmail.com | linkedin.com/in/prathmeshupadhyay008 | github.com/prathmesh008 | prathmesh.me
+
+PROFESSIONAL SUMMARY
+Full Stack Engineer with production experience architecting high-throughput booking platforms, distributed task queues, and transactional financial systems. Proven expertise in Node.js, Next.js, Python, Redis distributed locking, and event-driven microservices. Experienced in designing low-latency architectures with verified performance benchmarks and applied AI/RAG integrations.
+
+TECHNICAL SKILLS
+Languages: C++, Python, JavaScript (ES6+), TypeScript, SQL, HTML5/CSS3
+Backend & Distributed Systems: Node.js, Express.js, FastAPI, Redis, Distributed Locking, Message Queues (BullMQ), WebSockets, System Design, REST APIs, Microservices
+Databases & Storage: PostgreSQL, MongoDB, ChromaDB (Vector DB), Redis, Write-Ahead Logging (WAL)
+AI & LLM Systems: OpenAI API, Google Gemini API, LangChain, LangGraph, RAG, Vector Embeddings, Prompt Chaining
+DevOps & Developer Tools: Docker, Kubernetes, Linux, Git, GitHub Actions (CI/CD), Postman, Firebase Cloud Functions, k6, Sentry
+
+PROFESSIONAL EXPERIENCE
+Urban Culture — Full Stack Developer                                       May 2026 – Present | Jaipur, India
+• Distributed Concurrency & Locking: Engineered concurrent booking and slot-hold microservices using Redis SETNX distributed locking with automated TTL expiration, eliminating double-booking race conditions under 100+ simultaneous reservation attempts.
+• In-House Notification & Scheduling Engine: Architected an event-driven notification platform utilizing Pub/Sub event streaming and a priority preemption algorithm to dynamically pause, restore, and re-queue user journeys; unified BigQuery OLAP with MongoDB via an LLM query layer and distributed task scheduler, driving an incremental +5 bookings/day.
+• Double-Entry Financial Ledger: Designed high-integrity transactional wallet and ledger system in Node.js and Firestore; enforced atomic state transitions and audit logging, achieving 100% balance reconciliation accuracy across user balances, refunds, and partner payouts.
+• Checkout Recommendation Engine: Architected personalized recommendation pipeline evaluating Apriori rule mining against ML re-ranking; conducted bootstrapped CI testing to fix data leakage, driving an 18% lift in checkout add-on conversions across 10,000+ monthly reservations.
+
+Mentaive — Full Stack Engineering Intern                                            Feb 2026 – May 2026 | Remote
+• Platform Engineering & Scheduling: Built production assessment platform using MERN stack and Next.js; developed automated cron job scheduling engine for time-bounded examination windows and automated alerts via SendGrid, cutting manual administrative overhead by 40%.
+• API Contracts & Cross-Stack Integration: Coordinated 10+ RESTful API contracts between Next.js frontend and backend services, implementing strict request validation schemas that reduced cross-team sprint integration friction by 50%.
+• Frontend Performance Optimization: Profiled component render lifecycles with React DevTools; eliminated recursive DOM re-renders and implemented route-based dynamic code splitting, improving Core Web Vitals and boosting page load speeds by 30% on low-bandwidth devices.
+
+KEY ENGINEERING PROJECTS
+TaskFlow — Distributed Task Queue Engine | Node.js, Redis, Express, WebSockets, k6, Lua   Mar 2025 – May 2025
+• Cluster Hash-Slot Architecture: Architected a distributed background job engine utilizing Redis Cluster hash tags {queue} to enforce hash-slot locality across 16,384 shards, completely eliminating CROSSSLOT partition failures during atomic multi-key transactions.
+• Atomic Lua Dequeuing & Orphan Reaper: Authored atomic Lua scripts for deterministic single-roundtrip dequeue operations (RPOP + ZADD); engineered an autonomous Orphan Reaper daemon with heartbeat monitoring and full-jitter exponential backoff retries.
+• Benchmarking & Resilience: Stress-tested under 16 concurrent workers processing 100,000 background jobs via k6; sustained 3,351 jobs/sec throughput with 0% dropped tasks, sub-9.8ms P99 latency, and 100% crash recovery under injected SIGKILL.
+
+GrabASeat — Real-Time Booking Engine | Next.js 14, Node.js, Express, Socket.io, MongoDB, Python, k6   Nov 2024 – Feb 2025
+• Real-Time Concurrency Control: Built interactive seat reservation engine utilizing Socket.io event broadcasting and Redis distributed locking (SETNX with 10-minute TTL), guaranteeing mutual exclusion across 50+ simultaneous checkout requests.
+• ML Dynamic Pricing Microservice: Developed isolated Python/Flask microservice running Random Forest regression; load-tested to 500 concurrent virtual users via k6 with P99 latency <120ms; reduced MongoDB query latency by 60% via compound indexing.
+• Secure Payment & Automated Ticketing: Integrated Razorpay payment gateway with automated digital ticket generation using dynamic QR code verification.
+
+ChronoStore — Time-Series Storage Engine | Node.js, Express, Google Gemini API, ChromaDB   Jun 2025 – Aug 2025
+• Append-Only Storage & WAL Engine: Built custom append-only log file storage engine with in-memory range indexes, delivering sub-5ms query response times over 1,000,000+ data points; implemented Write-Ahead Logging (WAL) for fault-tolerant crash durability.
+• Semantic RAG Interface: Designed semantic NL-to-query layer using Google Gemini function calling; embedded document context into ChromaDB vector database with hybrid search to synthesize complex analytical queries.
+• Data Compression: Applied delta and run-length compression algorithms on sequential time-series timestamps and metric payloads, reducing on-disk storage footprint by 70%.
+
+EDUCATION
+Vellore Institute of Technology (VIT)                                                    Vellore, India
+Bachelor of Technology in Computer Science and Engineering                                 2022 – 2026
+Relevant Coursework: Data Structures & Algorithms, Operating Systems, Database Management Systems, Computer Networks, Distributed Systems, Object-Oriented Programming

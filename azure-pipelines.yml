@@ -1,0 +1,58 @@
+# Azure DevOps Pipeline for Autonomous AI Job Bot
+# Trigger: Runs automatically every day at 03:30 UTC (09:00 AM IST)
+schedules:
+- cron: "30 3 * * *"
+  displayName: "Daily Morning Application Run (9:00 AM IST)"
+  branches:
+    include:
+    - main
+  always: true
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  # Azure Container Registry & Service variables (set in Azure DevOps Library / Variable Group)
+  dockerRegistryServiceConnection: 'acr-service-connection'
+  imageRepository: 'ai-job-bot'
+  containerRegistry: 'yourregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build and Push Docker Image
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+    - task: Docker@2
+      displayName: Build and push image to ACR
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          latest
+
+- stage: Execute
+  displayName: Trigger Daily Application Run
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: RunBot
+    displayName: Run Application Cycle
+    steps:
+    - script: |
+        echo "Triggering Azure Container App or Azure VM execution..."
+        # Example Azure CLI trigger for Azure Container Apps (ACA) job:
+        # az containerapp job start --name ai-job-bot-job --resource-group rg-ai-job-bot
+      displayName: 'Start Azure Job'
+      env:
+        DATABASE_URL: $(DATABASE_URL)
+        OPENAI_API_KEY: $(OPENAI_API_KEY)

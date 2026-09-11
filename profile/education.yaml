@@ -1,0 +1,15 @@
+# profile/education.yaml
+
+education:
+  - degree: "B.Tech, Computer Science"
+    institution: "Vellore Institute of Technology"
+    start_date: "2022"
+    end_date: "2026"
+    gpa: "TODO"   # not on resume — fill in if forms ask
+    relevant_coursework:
+      - "Data Structures"
+      - "Algorithms"
+      - "OOP"
+      - "DBMS"
+      - "Operating Systems"
+      - "Computer Networks"

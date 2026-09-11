@@ -1,0 +1,47 @@
+# profile/skills_matrix.yaml
+# years reflect ~6 months professional experience (Feb 2026-present) plus
+# prior project work. Adjust proficiency labels as you see fit.
+
+skills:
+  - name: "Node.js"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "Express.js"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "Next.js"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "React.js"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "TypeScript"
+    years: 0.5
+    proficiency: "intermediate"
+  - name: "Python"
+    years: 1.0
+    proficiency: "intermediate"
+  - name: "FastAPI"
+    years: 0.4
+    proficiency: "beginner"
+  - name: "Redis"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "MongoDB"
+    years: 0.6
+    proficiency: "intermediate"
+  - name: "PostgreSQL"
+    years: 0.5
+    proficiency: "beginner"
+  - name: "Docker"
+    years: 0.5
+    proficiency: "intermediate"
+  - name: "AI/LLM integration (RAG, LangChain, LangGraph, MCP)"
+    years: 0.5
+    proficiency: "intermediate"
+  - name: "C++"
+    years: 2.0
+    proficiency: "intermediate"
+  - name: "SQL"
+    years: 1.0
+    proficiency: "intermediate"

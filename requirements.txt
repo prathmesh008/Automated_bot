@@ -1,0 +1,14 @@
+playwright
+langchain
+langchain-google-genai
+pydantic>=2.9.0
+python-dotenv
+beautifulsoup4
+requests
+PyPDF2
+pypdf
+reportlab
+openai
+psycopg2-binary
+sqlalchemy
+browser-use

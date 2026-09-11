@@ -1,0 +1,79 @@
+{
+  "name": "Prathmesh Upadhyay",
+  "email": "prath.upadhyay08@gmail.com",
+  "phone": "+91-9871057729",
+  "location": "Jaipur, India",
+  "github_url": null,
+  "linkedin_url": null,
+  "portfolio_url": null,
+  "summary": "Full stack engineer with hands-on production experience shipping booking, payments, and recommendation systems for a live consumer app, backed by deep personal project work in high-throughput backend infrastructure. Comfortable across Node.js/Next.js, Python, and applied ML/LLM integration.",
+  "skills": [
+    "C++",
+    "Python",
+    "JavaScript",
+    "SQL",
+    "Data Structures",
+    "Algorithms",
+    "OOP",
+    "DBMS",
+    "OS",
+    "Computer Networks",
+    "Node.js",
+    "Express",
+    "FastAPI",
+    "Redis",
+    "Docker",
+    "Git",
+    "PostgreSQL",
+    "MongoDB",
+    "Gemini API",
+    "OpenAI-compatible APIs",
+    "RAG",
+    "Prompt Chaining",
+    "LangChain",
+    "LangGraph",
+    "CrewAI",
+    "MCP",
+    "React.js",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Redux Toolkit"
+  ],
+  "experience": [
+    {
+      "company": "Urban Culture (Home Salon Startup)",
+      "title": "Full Stack Developer",
+      "duration": "May 2026 – Present",
+      "description": [
+        "Designed and shipped a cross-sell recommendation engine for checkout upsells; evaluated Apriori rule mining against multiple ML re-ranking architectures using bootstrapped confidence-interval testing, catching a train/test leakage bug and a silent feature-join failure that had been skewing earlier evaluations.",
+        "Designed cancellation and payment REST APIs from scratch, with Redis-backed distributed locking to prevent race conditions on concurrent slot bookings.",
+        "Built an internal wallet/ledger system to track user balances and transaction history.",
+        "Migrated key pages from client-side rendering to SSR and SSG and added Redis caching for static database reads; built a unified push notification system on Firebase Cloud Messaging with topic-based segmentation.",
+        "Integrated Sentry for error tracking, migrated backend services off static service-account keys to ADC-based auth, and set up CI/CD with GitHub Actions and Docker for consistent staging-to-production parity."
+      ]
+    },
+    {
+      "company": "Mentaive (EdTech Startup)",
+      "title": "Full Stack Engineering Intern",
+      "duration": "Feb 2026 – May 2026",
+      "description": [
+        "Owned delivery of 3+ production features in React.js/Next.js from requirements to deployment, cutting page load time 30% via code splitting, lazy loading, and bundle auditing.",
+        "Designed 10+ RESTful API contracts between the React frontend and a Python/Django backend, cutting cross-team integration time 50% and unblocking 2 sprint cycles.",
+        "Diagnosed a critical DOM rendering bug causing UI freezes on low-end devices: profiled the component tree, isolated a re-render loop, and shipped a fix within a 4-person Agile squad under deadline."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Vellore Institute of Technology",
+      "degree": "B.Tech, Computer Science",
+      "duration": "2022 – 2026"
+    }
+  ],
+  "qa_knowledge_base": {
+    "Project: GrabASeat": "Node.js, Python, Redis, MongoDB, Socket.io (Nov 2024 – Feb 2025). Redis SETNX seat locking with a 10-minute TTL: single winner guaranteed under 50+ simultaneous requests, eliminating double-booking at the atomic level. Implemented WAL-based sharding and indexing strategies for O(1) data retrieval and crash recovery. Python/Flask ML microservice with a Random Forest model for dynamic pricing; isolated service keeps CPU-bound ML off the Node.js event loop. Load-tested to 500 concurrent users via k6: p99 under 120ms. Compound MongoDB indexes on (date, status) and (soldCount) cut query time 60%.",
+    "Project: TaskFlow": "Distributed Task Queue Engine | Node.js, Express.js, Redis, WebSockets, React (2025). Redis-backed task queue from scratch: priority scheduling (Sorted Sets), delayed execution (ZRANGEBYSCORE), configurable concurrency, mirroring BullMQ internals. Lua scripts via ioredis for atomic dequeue in one roundtrip; exponential backoff retry, dead letter queue, at-least-once delivery tracked in Redis Hashes. Benchmarked at 3,350 jobs/sec: 100,000 jobs, 0 dropped, p95 latency 2.09ms (k6, 50 VUs).",
+    "Project: ChronoStore": "Time-Series Engine with NL Query Layer | Node.js, Express.js, Gemini API, ChromaDB (2025). Storage engine from scratch: append-only log files with in-memory range indexes at sub-5ms latency on 1M+ data points; WAL for crash durability and zero data loss on restart. RAG-style natural language query interface: chunks embedded in ChromaDB, retrieved context converts plain English to structured filters via Gemini function calling. Delta-encoded timestamps and run-length encoding achieve a 70% storage reduction vs. raw JSON, mirroring InfluxDB and Prometheus compression strategies."
+  }
+}
