@@ -12,8 +12,9 @@ from core.profile_loader import load_profile
 
 async def apply_to_wellfound_job(job_url: str, custom_pitch: str, headless: bool = True):
     print(f"🕵️‍♂️ Routing to deterministic Wellfound Parser for {job_url}")
-    bot_profile_dir = os.path.expanduser("~/Downloads/side quest/ai_job_bot/chrome_profile")
+    bot_profile_dir = os.getenv("CHROME_PROFILE_DIR") or os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "chrome_profile"))
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
+    profile = load_profile()
     
     async with async_playwright() as p:
         browser = await p.chromium.launch_persistent_context(
@@ -37,9 +38,22 @@ async def apply_to_wellfound_job(job_url: str, custom_pitch: str, headless: bool
                 raise Exception("Could not find the 'Apply' button on Wellfound.")
                 
             # 2. Check if the modal asks for a password (meaning logged out)
-            password_field = page.locator("input[type='password']")
-            if await password_field.count() > 0:
-                raise Exception("Wellfound is asking for a password! Run login.py to re-authenticate.")
+            password_field = page.locator("input[type='password']").first
+            if await password_field.is_visible(timeout=2000):
+                print("🔑 Wellfound is asking for a password. Attempting auto-login...")
+                email_field = page.locator("input[type='email'], input[name='email'], input[name*='email']").first
+                if await email_field.is_visible():
+                    await email_field.fill(profile.email)
+                    bot_password = os.getenv("BOT_PASSWORD", "prath9968")
+                    await password_field.fill(bot_password)
+                    login_btn = page.locator("button[type='submit'], input[type='submit'], button:has-text('Log In'), button:has-text('Sign In')").first
+                    if await login_btn.is_visible():
+                        await login_btn.click()
+                        await page.wait_for_timeout(4000)
+                
+                # Check if password field is still present
+                if await page.locator("input[type='password']").count() > 0:
+                    raise Exception("Wellfound requires manual login (CAPTCHA or 2FA). Please copy authenticated chrome_profile to server.")
                 
             # 3. Use AI to dynamically answer custom questions & attach resume
             profile = load_profile()

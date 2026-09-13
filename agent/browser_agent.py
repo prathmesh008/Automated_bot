@@ -30,7 +30,7 @@ async def apply_to_job(job_url: str, custom_pitch: str):
             await page.wait_for_timeout(3000)
             
             # Look for the "Apply" button
-            apply_btn = page.locator("a, button").filter(has_text=re.compile(r"^Apply|Apply for this position|Apply Now", re.IGNORECASE)).first
+            apply_btn = page.locator("a, button").filter(has_text=re.compile(r"\bApply\b", re.IGNORECASE)).first
             
             if await apply_btn.is_visible():
                 print("🖱️ Found Apply button. Clicking it...")

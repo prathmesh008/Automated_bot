@@ -8,7 +8,7 @@ from playwright.async_api import async_playwright
 
 async def apply_to_instahyre_job(job_url: str, custom_pitch: str, headless: bool = True):
     print(f"🕵️‍♂️ Routing to deterministic Instahyre Parser for {job_url}")
-    bot_profile_dir = os.path.expanduser("~/Downloads/side quest/ai_job_bot/chrome_profile")
+    bot_profile_dir = os.getenv("CHROME_PROFILE_DIR") or os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "chrome_profile"))
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
     
     async with async_playwright() as p:
