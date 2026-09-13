@@ -18,8 +18,18 @@ jobs:
           username: ${{ secrets.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
-            cd ~/job-applier
+            if [ -d "$HOME/job-applier" ]; then
+              cd "$HOME/job-applier"
+            elif [ -d "$HOME/Automated_bot" ]; then
+              cd "$HOME/Automated_bot"
+            elif [ -d "$HOME/ai_job_bot" ]; then
+              cd "$HOME/ai_job_bot"
+            else
+              echo "Error: Could not locate repo directory in $HOME"
+              exit 1
+            fi
+            echo "Deploying in $(pwd)..."
             git pull origin main
-            docker compose down
+            docker compose down || true
             docker compose up -d --build
 

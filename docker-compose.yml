@@ -1,0 +1,11 @@
+services:
+  bot-instance:
+    build: .
+    container_name: bot-instance
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./chrome_profile:/app/chrome_profile
+    restart: unless-stopped
