@@ -12,14 +12,14 @@ from playwright.async_api import async_playwright
 
 async def apply_to_job(job_url: str, custom_pitch: str):
     print(f"🤖 Starting generic Playwright Agent for: {job_url}")
-    
-    bot_profile_dir = os.path.expanduser("~/Downloads/side quest/ai_job_bot/chrome_profile")
+    bot_profile_dir = os.getenv("CHROME_PROFILE_DIR") or os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chrome_profile"))
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
+    is_headless = os.getenv("HEADLESS_MODE", "false").lower() == "true"
     
     async with async_playwright() as p:
         context = await p.chromium.launch_persistent_context(
             user_data_dir=bot_profile_dir,
-            headless=False,
+            headless=is_headless,
             args=['--disable-blink-features=AutomationControlled']
         )
         

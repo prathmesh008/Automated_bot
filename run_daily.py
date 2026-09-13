@@ -10,6 +10,7 @@ if os.path.exists(_venv_python) and sys.executable != _venv_python:
         os.execv(_venv_python, [_venv_python] + sys.argv)
 
 import asyncio
+import re
 from dotenv import load_dotenv
 from core.evaluator import evaluate_job
 from db.tracker import JobTracker
@@ -51,8 +52,9 @@ def get_platform_from_url(url: str) -> str:
 async def main():
     print("=== 🚀 Starting Daily AI Job Application Loop ===")
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
+    is_headless = os.getenv("HEADLESS_MODE", "true").lower() == "true"
     mode_str = "PRODUCTION AUTO-SUBMIT" if submit_applications else "SAFE TEST / STAGING MODE (Submit Guarded)"
-    print(f"🔧 Pipeline Mode: {mode_str}")
+    print(f"🔧 Pipeline Mode: {mode_str} (Headless: {is_headless})")
     
     tracker = JobTracker()
     todays_count = tracker.get_todays_application_count()
@@ -154,23 +156,23 @@ async def main():
                 # Route to the correct execution agent
                 if "boards.greenhouse.io" in job.link:
                     print("🤖 Routing to deterministic Greenhouse Parser...")
-                    await apply_to_greenhouse_job(job.link)
+                    await apply_to_greenhouse_job(job.link, headless=is_headless)
                 elif "jobs.lever.co" in job.link or "lever.co" in job.link:
                     print("🤖 Routing to deterministic Lever Parser...")
-                    await apply_to_lever_job(job.link, evaluation.custom_pitch, headless=False)
+                    await apply_to_lever_job(job.link, evaluation.custom_pitch, headless=is_headless)
                 elif "wellfound.com" in job.link:
                     print("🤖 Routing to native Wellfound Parser...")
-                    await apply_to_wellfound_job(job.link, evaluation.custom_pitch, headless=False)
+                    await apply_to_wellfound_job(job.link, evaluation.custom_pitch, headless=is_headless)
                 elif "workatastartup.com" in job.link:
                     print("🤖 Routing to native YC Parser...")
-                    await apply_to_yc_job(job.link, evaluation.custom_pitch, headless=False)
+                    await apply_to_yc_job(job.link, evaluation.custom_pitch, headless=is_headless)
                 elif "instahyre.com" in job.link:
                     from agent.parsers.instahyre import apply_to_instahyre_job
-                    await apply_to_instahyre_job(job.link, evaluation.custom_pitch, headless=False)
+                    await apply_to_instahyre_job(job.link, evaluation.custom_pitch, headless=is_headless)
                 elif "myworkdayjobs.com" in job.link:
                     from agent.parsers.workday import apply_to_workday_job
                     print("🤖 Routing to native Workday Parser with IMAP Auto-Registrar...")
-                    await apply_to_workday_job(job.link, evaluation.custom_pitch, headless=False)
+                    await apply_to_workday_job(job.link, evaluation.custom_pitch, headless=is_headless)
                 else:
                     print(f"🤖 Routing to generic Playwright agent for company site: {job.link}...")
                     res = await apply_to_job(job.link, evaluation.custom_pitch)
@@ -202,9 +204,9 @@ async def main():
                     url=job.link,
                     error_message=str(e)
                 )
-                alert_msg = f"Bot paused on {job.title} at {job.company}. Review link."
-                os.system(f'osascript -e \'display notification "{alert_msg}" with title "AI Job Bot Alert"\'')
-                print(f"📣 Sent MacOS notification for manual review: {job.link}")
+                if sys.platform == "darwin":
+                    os.system(f'osascript -e \'display notification "{alert_msg}" with title "AI Job Bot Alert"\'')
+                print(f"📣 Logged manual review alert for: {job.link}")
         else:
             score = evaluation.match_score if evaluation else 0
             print(f"🔴 Skipped (Score: {score}). {evaluation.rationale if evaluation else ''}")
