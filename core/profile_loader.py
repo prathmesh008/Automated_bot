@@ -17,6 +17,7 @@ Two safety behaviors baked in, on purpose:
    check `profile.load_warnings` before your first real run.
 """
 
+import os
 import yaml
 from pathlib import Path
 from dataclasses import dataclass, field
