@@ -7,7 +7,7 @@ import os
 import re
 from playwright.async_api import async_playwright
 
-from core.profile_loader import load_authenticated_cookies
+from core.profile_loader import load_authenticated_cookies, DEFAULT_USER_AGENT
 
 async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True):
     # Guard against category landing page URLs
@@ -22,6 +22,7 @@ async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True
         browser = await p.chromium.launch_persistent_context(
             user_data_dir=bot_profile_dir,
             headless=headless,
+            user_agent=DEFAULT_USER_AGENT,
             args=['--disable-blink-features=AutomationControlled']
         )
         await load_authenticated_cookies(browser)

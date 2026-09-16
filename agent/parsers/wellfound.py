@@ -8,7 +8,7 @@ import asyncio
 import os
 from playwright.async_api import async_playwright
 from agent.ai_form_filler import auto_fill_form_with_ai, find_candidate_resume
-from core.profile_loader import load_profile, load_authenticated_cookies
+from core.profile_loader import load_profile, load_authenticated_cookies, DEFAULT_USER_AGENT
 
 async def apply_to_wellfound_job(job_url: str, custom_pitch: str, headless: bool = True):
     print(f"🕵️‍♂️ Routing to deterministic Wellfound Parser for {job_url}")
@@ -20,6 +20,7 @@ async def apply_to_wellfound_job(job_url: str, custom_pitch: str, headless: bool
         browser = await p.chromium.launch_persistent_context(
             user_data_dir=bot_profile_dir,
             headless=headless,
+            user_agent=DEFAULT_USER_AGENT,
             args=['--disable-blink-features=AutomationControlled']
         )
         await load_authenticated_cookies(browser)

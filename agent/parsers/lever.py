@@ -8,14 +8,16 @@ import asyncio
 import os
 import re
 from playwright.async_api import Page, async_playwright
-from core.profile_loader import load_profile, load_authenticated_cookies
+from core.profile_loader import load_profile, load_authenticated_cookies, DEFAULT_USER_AGENT
 from agent.ai_form_filler import auto_fill_form_with_ai, find_candidate_resume
 
 async def apply_to_lever_job(job_url: str, custom_pitch: str = "", headless: bool = True):
-    print(f"🤖 Routing to deterministic Lever Parser for {job_url}...")
+    print(f"🕵️‍♂️ Routing to deterministic Lever Parser for {job_url}")
     bot_profile_dir = os.getenv("CHROME_PROFILE_DIR") or os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "chrome_profile"))
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
     profile = load_profile()
+    if profile.load_warnings:
+        print(f"⚠ Applying with {len(profile.load_warnings)} blanked TODO field(s): {profile.load_warnings}")
     resume_file = find_candidate_resume(profile)
     
     # Ensure URL targets the apply form
@@ -27,6 +29,7 @@ async def apply_to_lever_job(job_url: str, custom_pitch: str = "", headless: boo
         browser = await p.chromium.launch_persistent_context(
             user_data_dir=bot_profile_dir,
             headless=headless,
+            user_agent=DEFAULT_USER_AGENT,
             args=['--disable-blink-features=AutomationControlled']
         )
         await load_authenticated_cookies(browser)
