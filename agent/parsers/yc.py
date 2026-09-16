@@ -7,6 +7,8 @@ import os
 import re
 from playwright.async_api import async_playwright
 
+from core.profile_loader import load_authenticated_cookies
+
 async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True):
     # Guard against category landing page URLs
     if not re.search(r'/jobs/\d+', job_url) and not re.search(r'/companies/[^/]+/jobs/\d+', job_url):
@@ -22,6 +24,7 @@ async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True
             headless=headless,
             args=['--disable-blink-features=AutomationControlled']
         )
+        await load_authenticated_cookies(browser)
         page = await browser.new_page()
         
         try:

@@ -132,6 +132,29 @@ def load_profile() -> Profile:
     )
 
 
+async def load_authenticated_cookies(context):
+    """Loads plain JSON cookies from storage_state.json across any OS/container."""
+    possible_paths = [
+        os.getenv("STORAGE_STATE_PATH", ""),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "storage_state.json")),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "storage_state.json")),
+        os.path.abspath("storage_state.json")
+    ]
+    for path in possible_paths:
+        if path and os.path.exists(path):
+            try:
+                import json
+                with open(path, "r") as f:
+                    state = json.load(f)
+                if "cookies" in state and state["cookies"]:
+                    await context.add_cookies(state["cookies"])
+                    print(f"🍪 Loaded {len(state['cookies'])} authenticated session cookies from {os.path.basename(path)}!")
+                    return True
+            except Exception as e:
+                print(f"⚠️ Failed to inject cookies from {path}: {e}")
+    return False
+
+
 if __name__ == "__main__":
     p = load_profile()
     print(p)

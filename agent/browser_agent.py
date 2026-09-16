@@ -16,13 +16,14 @@ async def apply_to_job(job_url: str, custom_pitch: str):
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
     is_headless = os.getenv("HEADLESS_MODE", "false").lower() == "true"
     
+    from core.profile_loader import load_authenticated_cookies
     async with async_playwright() as p:
         context = await p.chromium.launch_persistent_context(
             user_data_dir=bot_profile_dir,
             headless=is_headless,
             args=['--disable-blink-features=AutomationControlled']
         )
-        
+        await load_authenticated_cookies(context)
         page = await context.new_page()
         
         try:
