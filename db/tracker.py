@@ -312,27 +312,22 @@ class JobTracker:
             conn.close()
 
     def has_applied_to(self, url: str) -> bool:
-        """Checks if we have already applied to or failed on this specific job URL."""
+        """Checks if we have already successfully applied to or staged this specific job URL."""
         conn = self._get_connection()
         cursor = conn.cursor()
         applied = False
-        failed = False
         try:
             if self.is_postgres:
-                cursor.execute("SELECT 1 FROM job_applications WHERE job_url = %s", (url,))
+                cursor.execute("SELECT 1 FROM job_applications WHERE job_url = %s AND submission_status IN ('APPLIED', 'Staged', 'Applied')", (url,))
                 applied = cursor.fetchone() is not None
-                cursor.execute("SELECT 1 FROM failed_jobs WHERE job_url = %s", (url,))
-                failed = cursor.fetchone() is not None
             else:
-                cursor.execute("SELECT 1 FROM applied_jobs WHERE url = ?", (url,))
+                cursor.execute("SELECT 1 FROM applied_jobs WHERE url = ? AND status IN ('Applied', 'Staged')", (url,))
                 applied = cursor.fetchone() is not None
-                cursor.execute("SELECT 1 FROM failed_jobs WHERE url = ?", (url,))
-                failed = cursor.fetchone() is not None
         except Exception as e:
             print(f"⚠️ DB lookup warning: {e}")
         finally:
             conn.close()
-        return applied or failed
+        return applied
 
     def get_todays_application_count(self) -> int:
         """Counts how many jobs were applied to today."""
