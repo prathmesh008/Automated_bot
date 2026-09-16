@@ -22,8 +22,9 @@ async def apply_to_greenhouse_job(job_url: str, headless: bool = True):
         print(f"⚠ Applying with {len(profile.load_warnings)} blanked TODO field(s): {profile.load_warnings}")
 
     matcher = QAMatcher(bank_path="profile/screening_qa_bank.yaml")
-    bot_profile_dir = os.path.expanduser("~/Downloads/side quest/ai_job_bot/chrome_profile")
+    bot_profile_dir = os.getenv("CHROME_PROFILE_DIR") or os.path.abspath(os.path.join(os.path.dirname(__file__), "chrome_profile"))
     submit_applications = os.getenv("SUBMIT_APPLICATIONS", "false").lower() == "true"
+    from core.profile_loader import load_authenticated_cookies
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch_persistent_context(
@@ -31,6 +32,7 @@ async def apply_to_greenhouse_job(job_url: str, headless: bool = True):
             headless=headless,
             args=['--disable-blink-features=AutomationControlled']
         )
+        await load_authenticated_cookies(browser)
         page = await browser.new_page()
         await page.goto(job_url, wait_until="domcontentloaded")
         await page.wait_for_timeout(3000)

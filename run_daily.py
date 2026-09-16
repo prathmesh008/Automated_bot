@@ -115,6 +115,11 @@ async def main():
             print(f"Skipping: Already applied to {job.title} at {job.company}.")
             continue
             
+        # Cloudflare datacenter blocker: Skip Himalayas web URLs on cloud servers
+        if "himalayas.app" in job.link:
+            print(f"Skipping: {job.title} at {job.company} (Himalayas blocked by Cloudflare on datacenter IPs).")
+            continue
+            
         # Optimization: Pre-filter out clearly non-software roles and senior roles
         title_lower = job.title.lower()
         non_software_words = [

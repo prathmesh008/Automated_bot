@@ -8,7 +8,7 @@ import asyncio
 import os
 import re
 from playwright.async_api import Page, async_playwright
-from core.profile_loader import load_profile
+from core.profile_loader import load_profile, load_authenticated_cookies
 from agent.ai_form_filler import auto_fill_form_with_ai, find_candidate_resume
 
 async def apply_to_lever_job(job_url: str, custom_pitch: str = "", headless: bool = True):
@@ -29,6 +29,7 @@ async def apply_to_lever_job(job_url: str, custom_pitch: str = "", headless: boo
             headless=headless,
             args=['--disable-blink-features=AutomationControlled']
         )
+        await load_authenticated_cookies(browser)
         page = await browser.new_page()
         
         try:

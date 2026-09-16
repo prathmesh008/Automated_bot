@@ -32,7 +32,7 @@ async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True
             await page.wait_for_timeout(3000)
             
             # 1. Look for the "Apply" button
-            apply_btn = page.locator("button:has-text('Apply')").first
+            apply_btn = page.locator(":is(button, a):has-text('Apply')").first
             
             if await apply_btn.is_visible():
                 await apply_btn.click()
@@ -42,18 +42,26 @@ async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True
                 
             # 2. Check for login wall
             login_wall = page.locator("input[name='password'], input[name='email']")
-            if await login_wall.count() > 0:
+            if await login_wall.count() > 0 and await login_wall.first.is_visible():
                 raise Exception("YC is asking for a password! Run login.py to re-authenticate.")
                 
             # 3. Inject the custom pitch into the text area
             textarea = page.locator("textarea").first
             if await textarea.count() > 0 and await textarea.is_visible():
-                await textarea.fill(custom_pitch)
+                pitch_to_send = custom_pitch
+                if not pitch_to_send or len(pitch_to_send.strip()) < 50:
+                    pitch_to_send = (
+                        f"{custom_pitch.strip() if custom_pitch else ''}\n"
+                        f"I am a passionate Software Engineer experienced in building scalable web applications, "
+                        f"distributed systems, and AI workflows. Excited to discuss how I can contribute to your team!"
+                    ).strip()
+                await textarea.fill(pitch_to_send)
+                await page.wait_for_timeout(1000)
             else:
                 print("   No pitch textarea found on YC modal.")
                 
             # 4. Controlled submit
-            submit_btn = page.locator("button:has-text('Send application'), button:has-text('Submit'), button:has-text('Apply')").last
+            submit_btn = page.locator("button:has-text('Send'), button:has-text('Send application'), button:has-text('Submit')").first
             if await submit_btn.is_visible():
                 if submit_applications:
                     await submit_btn.click()
@@ -61,7 +69,7 @@ async def apply_to_yc_job(job_url: str, custom_pitch: str, headless: bool = True
                     print("✅ Successfully submitted YC application!")
                 else:
                     print("⏸ Test Mode: Pitch injected and verified. Ready for submit (submit withheld for testing).")
-                    await page.wait_for_timeout(5000)
+                    await page.wait_for_timeout(3000)
             else:
                 raise Exception("Could not find the Submit button on YC.")
                 

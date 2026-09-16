@@ -5,6 +5,7 @@ Platform-specific parser for Instahyre.
 import asyncio
 import os
 from playwright.async_api import async_playwright
+from core.profile_loader import load_authenticated_cookies
 
 async def apply_to_instahyre_job(job_url: str, custom_pitch: str, headless: bool = True):
     print(f"🕵️‍♂️ Routing to deterministic Instahyre Parser for {job_url}")
@@ -17,6 +18,7 @@ async def apply_to_instahyre_job(job_url: str, custom_pitch: str, headless: bool
             headless=headless,
             args=['--disable-blink-features=AutomationControlled']
         )
+        await load_authenticated_cookies(browser)
         page = await browser.new_page()
         
         try:
