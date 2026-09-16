@@ -46,14 +46,22 @@ async def apply_to_wellfound_job(job_url: str, custom_pitch: str, headless: bool
                     await email_field.fill(profile.email)
                     bot_password = os.getenv("BOT_PASSWORD", "prath9968")
                     await password_field.fill(bot_password)
+                    # Submit by pressing Enter directly on password field
+                    await password_field.press("Enter")
+                    await page.wait_for_timeout(3000)
+                    
+                    # Also attempt forced click on submit button if modal persists
                     login_btn = page.locator("button[type='submit'], input[type='submit'], button:has-text('Log In'), button:has-text('Sign In')").first
-                    if await login_btn.is_visible():
-                        await login_btn.click()
+                    if await login_btn.is_visible(timeout=1000):
+                        try:
+                            await login_btn.click(force=True)
+                        except Exception:
+                            pass
                         await page.wait_for_timeout(4000)
                 
                 # Check if password field is still present
                 if await page.locator("input[type='password']").count() > 0:
-                    raise Exception("Wellfound requires manual login (CAPTCHA or 2FA). Please copy authenticated chrome_profile to server.")
+                    raise Exception("Wellfound login requires manual authentication (CAPTCHA or 2FA). Please copy your Mac's authenticated chrome_profile to the server.")
                 
             # 3. Use AI to dynamically answer custom questions & attach resume
             profile = load_profile()
