@@ -6,13 +6,13 @@ experience:
     location: "Jaipur, India"
     start_date: "2026-05"
     end_date: "Present"
-    tech_stack: ["Node.js", "Redis", "MongoDB", "Next.js", "Docker", "GitHub Actions"]
+    tech_stack: ["Node.js", "Redis", "BullMQ", "MongoDB", "FastAPI", "Python", "Next.js", "Docker", "GitHub Actions"]
     bullets:
-      - "Designed and shipped a cross-sell recommendation engine for checkout upsells; evaluated Apriori rule mining against multiple ML re-ranking architectures using bootstrapped confidence-interval testing, catching a train/test leakage bug and a silent feature-join failure."
-      - "Designed cancellation and payment REST APIs from scratch, with Redis-backed distributed locking to prevent race conditions on concurrent slot bookings."
-      - "Built an internal wallet/ledger system to track user balances and transaction history."
-      - "Migrated key pages from client-side rendering to SSR/SSG and added Redis caching for static database reads; built a unified push notification system on Firebase Cloud Messaging with topic-based segmentation."
-      - "Integrated Sentry for error tracking, migrated backend services off static service-account keys to ADC-based auth, and set up CI/CD with GitHub Actions and Docker for staging-to-production parity."
+      - "Architected an in-house MoEngage alternative for event-driven marketing and lifecycle automation: engineered dynamic RFM (Recency, Frequency, Monetary) behavioral segmentation and automated FCM push notification workflows, eliminating commercial SaaS licensing costs."
+      - "Engineered a fault-tolerant Change Data Capture (CDC) pipeline using MongoDB Replica Set Change Streams into a 50-concurrency Redis BullMQ worker pool with exponential backoff and dead-letter tracking, syncing user lifecycle state to Firestore with zero data loss."
+      - "Deployed a two-stage hybrid recommendation microservice (Apriori candidate retrieval + XGBoost Learning-to-Rank on FastAPI) alongside an event-debounced live cancellation risk scoring watcher (<100ms inference) with automated MLOps retraining crons."
+      - "Designed booking and payment REST APIs with Redis distributed locks (Redlock) to eliminate race conditions during concurrent checkout slot selection, plus an internal transactional ledger/wallet system."
+      - "Built live operational telemetry dashboards (Next.js 16, React 19, WebSockets) streaming real-time bookings and cancellation decision trees; migrated cloud services to ADC-based security and set up Docker/GitHub Actions CI/CD for staging-to-production parity."
 
   - title: "Full Stack Engineering Intern"
     company: "Mentaive (EdTech Startup)"
